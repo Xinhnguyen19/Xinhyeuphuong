@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Tình Yêu Vũ Trụ</title>
+<style>
+html, body {
+margin: 0;
+padding: 0;
+overflow: hidden;
+background: radial-gradient(ellipse at center, #000 0%, #0a0a0a 100%);
+height: 100%;
+font-family: 'Segoe UI', sans-serif;
+color: white;
+}
+
+canvas {
+position: absolute;
+top: 0;
+left: 0;
+z-index: 1;
+}
+
+.text {
+position: absolute;
+width: 100%;
+height: 100%;
+z-index: 2;
+pointer-events: none;
+overflow: hidden;
+}
+
+.text p {
+position: absolute;
+width: 100%;
+text-align: center;
+font-size: 2em;
+opacity: 0.8;
+animation: fallText 10s linear infinite;
+text-shadow: 0 0 10px #fff;
+}
+
+@keyframes fallText {
+0% { top: -10%; opacity: 0; transform: translateZ(0); }
+10% { opacity: 1; }
+100% { top: 110%; opacity: 0; transform: translateZ(-500px); }
+}
+</style>
+</head>
+<body>
+<canvas id="stars"></canvas>
+<div class="text" id="falling-texts"></div>
+
+<script>
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let stars = [];
+for (let i = 0; i < 200; i++) {
+stars.push({
+x: Math.random() * canvas.width,
+y: Math.random() * canvas.height,
+z: Math.random() * canvas.width
+});
+}
+
+function drawStars() {
+ctx.fillStyle = "black";
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+ctx.fillStyle = "white";
+for (let i = 0; i < stars.length; i++) {
+let star = stars[i];
+let k = 128.0 / star.z;
+let x = star.x * k + canvas.width / 2;
+let y = star.y * k + canvas.height / 2;
+
+if (x >= 0 && x <= canvas.width && y >= 0 && y <= canvas.height) {
+let size = (1 - star.z / canvas.width) * 2;
+ctx.beginPath();
+ctx.arc(x, y, size, 0, Math.PI * 2);
+ctx.fill();
+}
+
+star.z -= 2;
+if (star.z <= 0) {
+star.z = canvas.width;
+}
+}
+
+requestAnimationFrame(drawStars);
+}
+drawStars();
+
+const messages = [
+"Bảo bối yêu ơi 🩵",
+"03/04/2025",
+"Yêu Phương nhất trên đời 🫶",
+"My love 😍",
+"Hoài Phương 🥰🥰🥰",
+"I love you 💋",
+"Mãi yêu Phương 😘"
+];
+
+const container = document.getElementById("falling-texts");
+
+function createFallingItem(text) {
+const p = document.createElement("p");
+p.textContent = text;
+p.style.left = Math.random() * 80 + "%";
+p.style.animationDuration = (8 + Math.random() * 5) + "s";
+container.appendChild(p);
+
+setTimeout(() => p.remove(), 15000);
+}
+
+setInterval(() => {
+const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+createFallingItem(randomMessage);
+createFallingItem("❤️");
+}, 1200);
+</script>
+</body>
+</html>

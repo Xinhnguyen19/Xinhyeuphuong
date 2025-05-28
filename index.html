@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Love for Phương</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: linear-gradient(120deg, #ffdde1, #ee9ca7);
+            font-family: 'Courier New', Courier, monospace;
+            perspective: 1000px;
+            color: white;
+            text-align: center;
+        }
+
+        .content {
+            transform: rotateX(10deg) rotateY(-10deg);
+            margin-top: 10vh;
+        }
+
+        h1, h2, h3, p {
+            margin: 10px;
+            text-shadow: 2px 2px 4px #000;
+        }
+
+        .heart {
+            position: absolute;
+            color: pink;
+            animation: fall 5s linear infinite;
+            font-size: 20px;
+        }
+
+        @keyframes fall {
+            0% {
+                top: -10%;
+                transform: translateX(0);
+            }
+            100% {
+                top: 110%;
+                transform: translateX(100px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>I love you 💋</h1>
+        <h2>Mãi yêu Phương 😘</h2>
+        <p>Bảo bối yêu ơi 🩵</p>
+        <p>03/04/2025</p>
+        <p>Yêu Phương nhất trên đời 🫶</p>
+        <p>My love 😍</p>
+        <h3>Hoài Phương 🥰🥰🥰</h3>
+    </div>
+
+    <!-- Heart rain effect -->
+    <script>
+        const body = document.querySelector('body');
+        for (let i = 0; i < 50; i++) {
+            let heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            heart.textContent = '💖';
+            body.appendChild(heart);
+        }
+    </script>
+</body>
+</html>
